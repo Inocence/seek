@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect} from "react";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 const NavBar = ({ classValue }) => {
     return (
@@ -58,7 +59,7 @@ const Header = () => {
                             <NavBar classValue="hidden lg:flex items-center space-x-6" />
                         </div>
                         <div className="hidden md:flex items-center space-x-4">
-                            <button className="text-blue-800 border-2 border-blue-800 px-3 py-1.5 rounded-md font-medium hover:bg-blue-100">Sign in</button>
+                            <Link to="/login" className="text-blue-800 border-2 border-blue-800 px-3 py-1.5 rounded-md font-medium hover:bg-blue-100">Sign in</Link>
                             <a href="" className="font-medium text-blue-800">Employer site</a>
                         </div>
                         <div className="flex items-center text-lg hover:cursor-pointer md:hidden" onClick={toggleMenu}>Menu<i className={
