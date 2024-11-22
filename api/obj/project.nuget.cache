@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Q0y2QbzRfsQ=",
+  "dgSpecHash": "5ud/PO9uK0M=",
   "success": true,
-  "projectFilePath": "C:\\home\\code\\seek-employee\\api\\api.csproj",
+  "projectFilePath": "C:\\home\\code\\seek\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\baiyu\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\baiyu\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\home\\code\\seek-employee\\api\\api.csproj": {}
+    "C:\\home\\code\\seek\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\home\\code\\seek-employee\\api\\api.csproj": {
+    "C:\\home\\code\\seek\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\home\\code\\seek-employee\\api\\api.csproj",
+        "projectUniqueName": "C:\\home\\code\\seek\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\home\\code\\seek-employee\\api\\api.csproj",
+        "projectPath": "C:\\home\\code\\seek\\api\\api.csproj",
         "packagesPath": "C:\\Users\\baiyu\\.nuget\\packages\\",
-        "outputPath": "C:\\home\\code\\seek-employee\\api\\obj\\",
+        "outputPath": "C:\\home\\code\\seek\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\baiyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
