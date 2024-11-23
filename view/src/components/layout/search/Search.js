@@ -1,3 +1,4 @@
+import CommonButton from "../../common/CommonButton";
 import ClassifyList from "./ClassifyList";
 import WhatList from "./WhatList";
 import WhereList from "./WhereList";
@@ -20,7 +21,7 @@ const Search = () => {
                     <WhatList searchInput={searchInput} />
                     <ClassifyList searchInput={searchInput} />
                     <WhereList searchInput={searchInput} placeholder={"Enter suburb, city, or region"} />
-                    <button className='w-full md:w-auto text-center py-2 px-8 bg-pink-600 rounded-md text-white border-2 border-pink-600 hover:bg-pink-500 hover:border-pink-500'>SEEK</button>
+                    <CommonButton onClick={e => {}} variant={'pinkBackground'}>SEEK</CommonButton>
                 </div>
                 <div className='hidden md:flex justify-between mt-6 text-white'>
                     <div className='flex justify-between text-base'>

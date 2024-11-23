@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import Logo from "../common/Logo";
 
 const NavBar = ({ classValue }) => {
     return (
@@ -13,15 +14,15 @@ const NavBar = ({ classValue }) => {
     );
 }
 
-const MobileMenu = ({currentHeight}) => {
+const MobileMenu = ({ currentHeight }) => {
     return (
-        <div className="md:hidden fixed inset-0 flex flex-col bg-white border-t-2 border-gray-200" style={{top: currentHeight + 'px'}}>
+        <div className="md:hidden fixed inset-0 flex flex-col bg-white border-t-2 border-gray-200" style={{ top: currentHeight + 'px' }}>
             <div className="flex flex-col">
-                    <a href="" className="px-3 py-4 text-lg border-l-4 border-blue-800">Job Search</a>
-                    <a href="" className="px-3 py-4 text-lg text-gray-500">Profile</a>
-                    <a href="" className="px-3 py-4 text-lg text-gray-500">Career advice</a>
-                    <a href="" className="px-3 py-4 text-lg text-gray-500">Explore companies</a>
-                </div>
+                <a href="" className="px-3 py-4 text-lg border-l-4 border-blue-800">Job Search</a>
+                <a href="" className="px-3 py-4 text-lg text-gray-500">Profile</a>
+                <a href="" className="px-3 py-4 text-lg text-gray-500">Career advice</a>
+                <a href="" className="px-3 py-4 text-lg text-gray-500">Explore companies</a>
+            </div>
         </div>
     );
 }
@@ -32,7 +33,7 @@ const Header = () => {
     const [currentHeight, setCurrentHeight] = useState(0);
 
     useEffect(() => {
-        if(navRef.current) {
+        if (navRef.current) {
             setCurrentHeight(navRef.current.offsetHeight);
         }
     }, [isOpenMenu]);
@@ -52,10 +53,7 @@ const Header = () => {
                 <div className="w-full">
                     <div className="flex justify-between">
                         <div className="flex">
-                            <a href="" className="flex items-center">
-                                <img src="./web-logo.jpg" className="h-12 w-12 mr-1" />
-                                <span className="mr-4 text-2xl font-bold">Geek</span>
-                            </a>
+                            <Logo />
                             <NavBar classValue="hidden lg:flex items-center space-x-6" />
                         </div>
                         <div className="hidden md:flex items-center space-x-4">
@@ -65,14 +63,14 @@ const Header = () => {
                         <div className="flex items-center text-lg hover:cursor-pointer md:hidden" onClick={toggleMenu}>Menu<i className={
                             classNames([
                                 "fa-solid fa-chevron-down ml-1 duration-300",
-                                isOpenMenu ? 'rotate-180': '',
+                                isOpenMenu ? 'rotate-180' : '',
                             ])
                         }></i></div>
                     </div>
                 </div>
                 <NavBar classValue="hidden md:flex items-center space-x-6 lg:hidden" />
             </div>
-            {isOpenMenu && <MobileMenu currentHeight={currentHeight}  />}
+            {isOpenMenu && <MobileMenu currentHeight={currentHeight} />}
         </nav>
     );
 }

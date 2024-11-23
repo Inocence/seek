@@ -61,7 +61,7 @@ const Footer = () => {
                     <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-3">
                         <a href="" className="hover:underline">Terms & conditions</a>
                         <a href="" className="hover:underline">Security & Privacy</a>
-                        <span className="">© SEEK. All rights reserved</span>
+                        <span className="">© GEEK. All rights reserved</span>
                     </div>
                 </div>
             </div>
