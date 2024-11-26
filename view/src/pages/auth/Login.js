@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import CommonButton from "../../components/common/CommonButton";
-import CommonInput from "../../components/common/CommonInput";
-import AuthLayout from "../../components/layout/AuthLayout";
+import CommonButton from "../../components/Common/CommonButton";
+import CommonInput from "../../components/Common/CommonInput";
+import AuthLayout from "../../components/Layout/AuthLayout";
 
 const Login = () => {
     return (

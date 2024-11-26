@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import ClearToast from "../../common/ClearToast";
+import ClearToast from "../../../Components/Common/ClearToast";
 
 const WhereList = ({ searchInput }) => {
     const [isMouseOn, setIsMouseOn] = useState(false);

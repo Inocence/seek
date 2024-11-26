@@ -17,5 +17,6 @@ namespace api.Models
         public decimal Longitude { get; set; }
         public int AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
+        public List<JobApplication> JobApplications {get; set;} = [];
     }
 }

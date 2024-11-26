@@ -2,21 +2,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Constants;
+using api.Data;
 using api.Dtos.Account;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 
 namespace api.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        public AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AuthService(
+            ApplicationDbContext context,
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
         public async Task<SignInResult> LoginAsync(LoginDto loginDto)
         {
@@ -27,11 +35,11 @@ namespace api.Services
 
         public async Task<IdentityResult> RegisterAsync(RegisterDto registerDto)
         {
-            var appUser = new AppUser{Email = registerDto.Email};
+            var appUser = new AppUser { Email = registerDto.Email, UserName = registerDto.Email };
             var result = await _userManager.CreateAsync(appUser, registerDto.Password);
-            if(!result.Succeeded)  return result;
+            if (!result.Succeeded) return result;
 
-            var resultRole = await _userManager.AddToRoleAsync(appUser, "User");
+            var resultRole = await _userManager.AddToRoleAsync(appUser, RoleType.JobSeeker);
             return resultRole;
         }
     }

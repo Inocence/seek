@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Constants;
 
 namespace api.Models
 {
@@ -10,7 +11,8 @@ namespace api.Models
         public int Id { get; set; }
         public string? Name { get; set; }
         public int ParentId { get; set; }
-        public int IsActive { get; set; }
+        public IsActive IsActive { get; set; } = IsActive.IsActive;
+        public List<Company> Companies {get; set;} = [];
         public DateTime UpdatedAt { get; set; }
         public DateTime CreatedAt { get; set; }
     }

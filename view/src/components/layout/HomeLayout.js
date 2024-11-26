@@ -1,8 +1,8 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import Search from "./search/Search";
+import Search from "../../pages/Home/Search/Search"
 
-const Layout = ({ children }) => {
+const HomeLayout = ({ children }) => {
     return (
         <div>
             <div className="container max-w-full">
@@ -15,4 +15,4 @@ const Layout = ({ children }) => {
     );
 }
 
-export default Layout;
+export default HomeLayout;

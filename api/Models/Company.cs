@@ -15,8 +15,9 @@ namespace api.Models
         public string Description { get; set; } = string.Empty;
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public int IndustryId {get; set;}
         public Industry? Industry { get; set; }
-        public int AppUserId { get; set; }
+        public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
     }
 }

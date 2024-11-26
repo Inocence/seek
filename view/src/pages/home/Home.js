@@ -2,13 +2,13 @@ import BottomBanner from "./BottomBanner";
 import CompanySlides from "./CompanySlides";
 import LoginTips from "./Login-tips";
 import RecentSearch from "./RecentSearch";
-import Layout from "../../components/layout/Layout";
+import HomeLayout from "../../components/Layout/HomeLayout";
 import QuikSearch from "./QuikSearch";
 
 
 const Home = () => {
     return (
-        <Layout>
+        <HomeLayout>
             <div>
                 <RecentSearch />
                 <LoginTips />
@@ -16,7 +16,7 @@ const Home = () => {
                 <BottomBanner />
                 <QuikSearch />
             </div>
-        </Layout>
+        </HomeLayout>
     );
 }
 

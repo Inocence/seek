@@ -1,4 +1,4 @@
-import CommonButton from "../../common/CommonButton";
+import CommonButton from "../../../components/Common/CommonButton";
 import ClassifyList from "./ClassifyList";
 import WhatList from "./WhatList";
 import WhereList from "./WhereList";

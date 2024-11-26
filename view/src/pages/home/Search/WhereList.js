@@ -1,23 +1,25 @@
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import ClearToast from "../../common/ClearToast";
+import ClearToast from "../../../components/Common/ClearToast";
 
-const WhatList = ({ searchInput}) => {
+const WhereList = ({ searchInput }) => {
     const [isMouseOn, setIsMouseOn] = useState(false);
     const [inputValue, setInputValue] = useState("");
-    const [isFirst, setIsFirst] = useState(false);
+    const [isFocus, setIsFocus] = useState(false);
     const outRef = useRef(null);
 
-    useEffect(() => {
-        if(!isFirst && inputValue) {
-            setIsFirst(true);
-            handleScrollTop();
-            document.body.style.overflow = 'hidden';
-        }
-    }, [inputValue]);
-    
+    const handleFocus = () => {
+        setIsFocus(true);
+        handleScrollTop();
+        document.body.style.overflow = 'hidden';
+    }
+
+    const handleBlur = () => {
+        handleClear();
+    };
+
     const handleClear = () => {
-        setIsFirst(false);
+        setIsFocus(false);
         setInputValue("");
         setIsMouseOn(false);
         document.body.style.overflow = 'auto';
@@ -47,19 +49,21 @@ const WhatList = ({ searchInput}) => {
         <div
             className={classNames([
                 'w-full relative',
-                isFirst ? 'z-50' : '',
+                isFocus ? 'z-50' : '',
             ])}
             ref={outRef}
-            >
-            {isFirst && <div className="fixed inset-0 bg-black bg-opacity-50"></div>}
-            <div className='text-white font-medium block mb-2 relative'>What</div>
+        >
+            {isFocus && <div className="fixed inset-0 bg-black bg-opacity-50"></div>}
+            <div className='text-white font-medium block mb-2 relative'>Where</div>
             <div className="relative">
                 <input
                     type="text"
-                    placeholder='Enter Keywords'
+                    placeholder='Enter suburb, city, or region'
                     className={searchInput}
                     onChange={e => handleInput(e.target.value)}
                     value={inputValue}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                 />
                 {inputValue && <div
                     className={classNames([
@@ -71,20 +75,25 @@ const WhatList = ({ searchInput}) => {
                 ><i className="fa-solid fa-xmark"></i></div>}
                 {isMouseOn && <ClearToast />}
             </div>
-            {inputValue && <div className={classNames([
-                'w-full rounded-md bg-white flex flex-col absolute top-full translate-y-3 left-0 overflow-y-scroll h-48 shadow-md',
+            {isFocus && <div className={classNames([
+                'w-full rounded-md bg-white flex flex-col absolute top-full translate-y-3 left-0 overflow-y-scroll h-96 shadow-md',
             ])}>
                 <div className={classNames([
                     "flex flex-col",
                 ])}>
-                    <a href="" className="p-3 text-lg hover:bg-blue-100">php</a>
-                    <a href="" className="p-3 text-lg hover:bg-blue-100">react</a>
-                    <a href="" className="p-3 text-lg hover:bg-blue-100">java</a>
-                    <a href="" className="p-3 text-lg hover:bg-blue-100">python</a>
+                    <span className="p-3 text-lg font-bold">Remote</span>
+                    <a href="" className="p-3 text-lg hover:bg-blue-100">Work from home</a>
+                    <span className="p-3 text-lg font-bold">Recent</span>
+                    <a href="" className="p-3 text-lg hover:bg-blue-100">All Austrialia</a>
+                    <a href="" className="p-3 text-lg hover:bg-blue-100">All Sydney NSW</a>
+                    <a href="" className="p-3 text-lg hover:bg-blue-100">Sydney NSW 2000</a>
+                    <span className="p-3 text-lg font-bold">Related areas</span>
+                    <a href="" className="p-3 text-lg hover:bg-blue-100">Melbourne VIC 3000</a>
+                    <a href="" className="p-3 text-lg hover:bg-blue-100">All Melbourne VIC</a>
                 </div>
             </div>}
         </div>
     );
 };
 
-export default WhatList;
+export default WhereList;

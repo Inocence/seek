@@ -12,7 +12,7 @@ namespace api.Models
         public string? BlogUrl { get; set; }
         public string? ContentType { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int AppUserId { get; set; }
+        public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
     }
 }
