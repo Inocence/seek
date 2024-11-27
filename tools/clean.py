@@ -6,13 +6,9 @@ import subprocess
 
 def execute_sqlcmd(command):
     try:
-        # 构造 SQLCMD 命令（使用 Windows 身份验证）
         sqlcmd_command = f"sqlcmd -S white\\SQLEXPRESS -E -Q \"{command}\""
-        
-        # 执行 SQLCMD 命令
         result = subprocess.run(sqlcmd_command, shell=True, capture_output=True, text=True)
-        
-        # 检查是否执行成功
+
         if result.returncode == 0:
             print("Command executed successfully.")
             print(result.stdout)
