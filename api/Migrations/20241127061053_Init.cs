@@ -60,6 +60,7 @@ namespace api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: false),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<int>(type: "int", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -236,7 +237,9 @@ namespace api.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    JobCount = table.Column<int>(type: "int", nullable: false),
                     IndustryId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -355,10 +358,10 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0a7a4a71-b8b8-4451-88e0-581a86fae33b", null, "Company", "COMPANY" },
-                    { "42b865de-e4c0-4874-8428-442055289c56", null, "Recruiter", "RECRUITER" },
-                    { "7abff4da-9961-44f7-ba86-b5514fa1e803", null, "Admin", "ADMIN" },
-                    { "81604a5e-5cb7-4771-8a5c-648d86a7f337", null, "JobSeeker", "JOBSEEKER" }
+                    { "58cd153d-3b04-47e5-9330-875669b3cd0b", null, "Admin", "ADMIN" },
+                    { "75b70797-aa05-40cc-b4d8-4130069c303f", null, "JobSeeker", "JOBSEEKER" },
+                    { "961d8652-96b1-40fe-bdaa-3fc21c6067bc", null, "Recruiter", "RECRUITER" },
+                    { "cbfc98d0-b20d-4bc3-a2a6-8b53925b9306", null, "Company", "COMPANY" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -51,25 +51,25 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7abff4da-9961-44f7-ba86-b5514fa1e803",
+                            Id = "58cd153d-3b04-47e5-9330-875669b3cd0b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "81604a5e-5cb7-4771-8a5c-648d86a7f337",
+                            Id = "75b70797-aa05-40cc-b4d8-4130069c303f",
                             Name = "JobSeeker",
                             NormalizedName = "JOBSEEKER"
                         },
                         new
                         {
-                            Id = "0a7a4a71-b8b8-4451-88e0-581a86fae33b",
+                            Id = "cbfc98d0-b20d-4bc3-a2a6-8b53925b9306",
                             Name = "Company",
                             NormalizedName = "COMPANY"
                         },
                         new
                         {
-                            Id = "42b865de-e4c0-4874-8428-442055289c56",
+                            Id = "961d8652-96b1-40fe-bdaa-3fc21c6067bc",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -274,6 +274,12 @@ namespace api.Migrations
                     b.Property<int>("IndustryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobCount")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Latitude")
                         .HasColumnType("decimal(18,2)");
 
@@ -340,6 +346,9 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")

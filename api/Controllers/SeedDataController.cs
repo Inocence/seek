@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Controllers
 {
     [Route("api/seed-data")]
+    [ApiController]
     public class SeedDataController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -56,8 +57,6 @@ namespace api.Controllers
                     IndustryId = industry.Id,
                     AppUserId = appUser.Id
                 };
-                companyObj.CompanyName = companyObj.CompanyName + i;
-                companyObj.AppUserId = appUser.Id;
                 await _context.Companies.AddAsync(companyObj);
                 await _context.SaveChangesAsync();
             }
