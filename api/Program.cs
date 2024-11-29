@@ -74,6 +74,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IIndustryRepository, IndustryRepository>();
+builder.Services.AddScoped<IJobPostingRepository, JobPostingRepository>();
 
 var app = builder.Build();
 

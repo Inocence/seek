@@ -12,6 +12,7 @@ namespace api.Models
         public string? Name { get; set; }
         public int ParentId { get; set; }
         public int SortOrder {get; set;}
+        public int JobCount {get; set;}
         public IsActive IsActive { get; set; } = IsActive.IsActive;
         public List<Company> Companies {get; set;} = [];
         public DateTime UpdatedAt { get; set; }

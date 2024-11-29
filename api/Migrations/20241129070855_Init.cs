@@ -61,6 +61,7 @@ namespace api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
+                    JobCount = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<int>(type: "int", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -295,8 +296,8 @@ namespace api.Migrations
                     PostedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     WorkMode = table.Column<int>(type: "int", nullable: false),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Salary = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salary = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LocationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -358,10 +359,10 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "58cd153d-3b04-47e5-9330-875669b3cd0b", null, "Admin", "ADMIN" },
-                    { "75b70797-aa05-40cc-b4d8-4130069c303f", null, "JobSeeker", "JOBSEEKER" },
-                    { "961d8652-96b1-40fe-bdaa-3fc21c6067bc", null, "Recruiter", "RECRUITER" },
-                    { "cbfc98d0-b20d-4bc3-a2a6-8b53925b9306", null, "Company", "COMPANY" }
+                    { "06330024-90cc-48da-99dd-9ffe2028c414", null, "JobSeeker", "JOBSEEKER" },
+                    { "13d1e8ec-66f6-481f-8777-f17b0ac18d15", null, "Recruiter", "RECRUITER" },
+                    { "acde8451-7a5f-4389-ac96-c6fe51ebe4e8", null, "Company", "COMPANY" },
+                    { "c3382307-0cdc-4a16-9528-628483e31a30", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

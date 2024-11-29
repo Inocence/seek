@@ -19,7 +19,7 @@ namespace api.Repositories
             _context = context;
         }
 
-        public async Task<PageResult<Company>> GetHomePageCompanies(int pageNumber, int pageSize)
+        public async Task<PageResult<Company>> GetListByQuery(int pageNumber, int pageSize)
         {
             var query = _context.Companies
                             .Where(x => x.IsActive == IsActive.IsActive)

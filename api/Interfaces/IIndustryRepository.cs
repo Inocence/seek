@@ -8,6 +8,6 @@ namespace api.Interfaces
 {
     public interface IIndustryRepository
     {
-        Task<List<Industry>> GetIndustriesList();
+        Task<List<Industry>> GetAll();
     }
 }

@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241127061053_Init")]
+    [Migration("20241129070855_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -54,25 +54,25 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "58cd153d-3b04-47e5-9330-875669b3cd0b",
+                            Id = "c3382307-0cdc-4a16-9528-628483e31a30",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "75b70797-aa05-40cc-b4d8-4130069c303f",
+                            Id = "06330024-90cc-48da-99dd-9ffe2028c414",
                             Name = "JobSeeker",
                             NormalizedName = "JOBSEEKER"
                         },
                         new
                         {
-                            Id = "cbfc98d0-b20d-4bc3-a2a6-8b53925b9306",
+                            Id = "acde8451-7a5f-4389-ac96-c6fe51ebe4e8",
                             Name = "Company",
                             NormalizedName = "COMPANY"
                         },
                         new
                         {
-                            Id = "961d8652-96b1-40fe-bdaa-3fc21c6067bc",
+                            Id = "13d1e8ec-66f6-481f-8777-f17b0ac18d15",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -345,6 +345,9 @@ namespace api.Migrations
                     b.Property<int>("IsActive")
                         .HasColumnType("int");
 
+                    b.Property<int>("JobCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -431,9 +434,11 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Salary")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")

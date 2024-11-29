@@ -20,10 +20,10 @@ namespace api.Controllers
             _indutryRepo = indutryRepo;
         }
 
-        [HttpGet("get-industries-list")]
-        public async Task<IActionResult> GetIndustriesList()
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetAll()
         {
-            var result = await _indutryRepo.GetIndustriesList();
+            var result = await _indutryRepo.GetAll();
             var industries = result.Select(x => x.FromModelToResponseDto());
             return Ok(industries);
         }

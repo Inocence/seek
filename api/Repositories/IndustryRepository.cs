@@ -17,7 +17,7 @@ namespace api.Repositories
         {
             _context = context;
         }
-        public Task<List<Industry>> GetIndustriesList()
+        public Task<List<Industry>> GetAll()
         {
             var result = _context.Industries
                 .Where(x => x.IsActive == IsActive.IsActive)

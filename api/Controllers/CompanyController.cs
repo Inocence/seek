@@ -27,12 +27,12 @@ namespace api.Controllers
             _companyRepo = companyRepo;
         }
 
-        [HttpGet("get-home-page-companies")]
-        public async Task<IActionResult> GetHomePageCompanies([FromQuery] SimpleQuery simpleQuery) {
+        [HttpGet("get-list-by-query")]
+        public async Task<IActionResult> GetListByQuery([FromQuery] SimpleQuery simpleQuery) {
             if(!ModelState.IsValid) {
                 return BadRequest(ModelState);
             }
-            var result = await _companyRepo.GetHomePageCompanies(simpleQuery.PageNumber, simpleQuery.PageSize);
+            var result = await _companyRepo.GetListByQuery(simpleQuery.PageNumber, simpleQuery.PageSize);
             var companies = result.Data.Select(x => x.FromModelToReponseDto());
             return Ok(new PageResult<CompanyListReponseDto> {
                 Data = result.Data.Select(x => x.FromModelToReponseDto()).ToList(),
@@ -41,5 +41,6 @@ namespace api.Controllers
                 CurrentPage = result.CurrentPage
             });
         }
+
     }
 }

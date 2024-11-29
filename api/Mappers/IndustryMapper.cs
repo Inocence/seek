@@ -14,7 +14,8 @@ namespace api.Mappers
                 Id = industry.Id,
                 Name = industry.Name,
                 ParentId = industry.ParentId,
-                SortOrder = industry.SortOrder
+                SortOrder = industry.SortOrder,
+                JobCount = industry.JobCount
             };
         }
     }

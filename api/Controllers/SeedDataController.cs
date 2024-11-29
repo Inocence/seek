@@ -8,6 +8,7 @@ using api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
@@ -29,7 +30,7 @@ namespace api.Controllers
         [HttpPost("add-companies")]
         public async Task<IActionResult> AddCompanies()
         {
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 20; i++)
             {
                 var appUser = new AppUser
                 {
@@ -39,7 +40,8 @@ namespace api.Controllers
                 await _userManager.CreateAsync(appUser, "Aa123456");
                 await _userManager.AddToRoleAsync(appUser, RoleType.Company);
 
-                var industry = new Industry{
+                var industry = new Industry
+                {
                     Name = "Information Technology" + i,
                     IsActive = IsActive.IsActive,
                 };
@@ -61,6 +63,37 @@ namespace api.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            return Ok();
+        }
+
+        [HttpPost("add-job-postings")]
+        public async Task<IActionResult> AddJobPostings()
+        {
+            var users = await _userManager.Users.Select(x => x.Id).ToListAsync();
+            for (int i = 0; i < 20; i++)
+            {
+                var jobObj = new JobPosting
+                {
+                    Title = "Sales and Customer Service Consultant" + i,
+                    Description = """
+                        You're only human. 
+                        It's a strange thing to say, because us humans are capable of incredible things. And at Medibank, we know our greatest potential lies in the people who work with us. 
+                        We strive to make real, fundamental change, driven by a simple purpose: to create the best health and wellbeing for all of Australia.
+                    """,
+                    JobType =  (JobType)(i % 4 + 1),
+                    PostedDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now.AddDays(i + 1),
+                    WorkMode = (WorkMode)(i % 3 + 1),
+                    Salary = "$61,800 + Super + Incentives",
+                    LocationName = "Burwood, Sydney NSW",
+                    Latitude = -33.8688m,
+                    Longitude = 151.2093m,
+                    IndustryId = i + 1,
+                    AppUserId = users[i],
+                };
+                _context.JobPostings.Add(jobObj);
+                await _context.SaveChangesAsync();
+            }
             return Ok();
         }
     }

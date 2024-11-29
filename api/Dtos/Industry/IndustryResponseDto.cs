@@ -11,5 +11,6 @@ namespace api.Dtos.Industry
         public string? Name { get; set; }
         public int ParentId { get; set; }
         public int SortOrder {get; set;}
+        public int JobCount {get; set;}
     }
 }

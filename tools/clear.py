@@ -35,8 +35,8 @@ def execute_dotnet_commands():
 if __name__ == "__main__":
     db_name = "seek"
     commands = [
-        "USE master;",
-        f"ALTER DATABASE {db_name} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;",
+        #"USE master;",
+        #f"ALTER DATABASE {db_name} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;",
         f"DROP DATABASE {db_name};"
     ]
     for command in commands:

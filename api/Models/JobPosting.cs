@@ -15,8 +15,8 @@ namespace api.Models
         public DateTime PostedDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         public WorkMode WorkMode { get; set; }
-        public string? Tags { get; set; }
-        public string? Salary { get; set; }
+        public string Tags { get; set; } = string.Empty;
+        public string Salary { get; set; } = string.Empty;
         public string LocationName { get; set; } = string.Empty;
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
