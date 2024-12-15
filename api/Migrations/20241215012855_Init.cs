@@ -203,34 +203,31 @@ namespace api.Migrations
                 name: "JobSeekers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CountryCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AppUserId = table.Column<int>(type: "int", nullable: false),
-                    AppUserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_JobSeekers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobSeekers_AspNetUsers_AppUserId1",
-                        column: x => x.AppUserId1,
+                        name: "FK_JobSeekers_AspNetUsers_Id",
+                        column: x => x.Id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CompanyWebsite = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -240,46 +237,21 @@ namespace api.Migrations
                     Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     JobCount = table.Column<int>(type: "int", nullable: false),
                     IndustryId = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<int>(type: "int", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Companies_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
+                        name: "FK_Companies_AspNetUsers_Id",
+                        column: x => x.Id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Companies_Industries_IndustryId",
                         column: x => x.IndustryId,
                         principalTable: "Industries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Recruiters",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recruiters", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Recruiters_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Recruiters_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -302,28 +274,23 @@ namespace api.Migrations
                     Latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IndustryId = table.Column<int>(type: "int", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    RecruiterId = table.Column<int>(type: "int", nullable: true)
+                    CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_JobPostings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobPostings_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        name: "FK_JobPostings_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_JobPostings_Industries_IndustryId",
                         column: x => x.IndustryId,
                         principalTable: "Industries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_JobPostings_Recruiters_RecruiterId",
-                        column: x => x.RecruiterId,
-                        principalTable: "Recruiters",
-                        principalColumn: "Id");
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -335,23 +302,22 @@ namespace api.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     JobPostingId = table.Column<int>(type: "int", nullable: false),
-                    JobSeekerId = table.Column<int>(type: "int", nullable: false)
+                    JobSeekerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_JobApplications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobApplications_JobPostings_JobSeekerId",
-                        column: x => x.JobSeekerId,
+                        name: "FK_JobApplications_JobPostings_JobPostingId",
+                        column: x => x.JobPostingId,
                         principalTable: "JobPostings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_JobApplications_JobSeekers_JobPostingId",
-                        column: x => x.JobPostingId,
+                        name: "FK_JobApplications_JobSeekers_JobSeekerId",
+                        column: x => x.JobSeekerId,
                         principalTable: "JobSeekers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -359,10 +325,10 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "06330024-90cc-48da-99dd-9ffe2028c414", null, "JobSeeker", "JOBSEEKER" },
-                    { "13d1e8ec-66f6-481f-8777-f17b0ac18d15", null, "Recruiter", "RECRUITER" },
-                    { "acde8451-7a5f-4389-ac96-c6fe51ebe4e8", null, "Company", "COMPANY" },
-                    { "c3382307-0cdc-4a16-9528-628483e31a30", null, "Admin", "ADMIN" }
+                    { "23e4d101-d5e7-49dd-bbe8-c8dba5c2f81d", null, "JobSeeker", "JOBSEEKER" },
+                    { "5af3a490-bc39-46b2-8602-acfb056cf378", null, "Recruiter", "RECRUITER" },
+                    { "87f01cd3-713d-4e77-ae2e-2e83d2fbecc5", null, "Admin", "ADMIN" },
+                    { "98808333-38cd-4fed-949c-4a3f906bef9e", null, "Company", "COMPANY" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -405,11 +371,6 @@ namespace api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_AppUserId",
-                table: "Companies",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Companies_IndustryId",
                 table: "Companies",
                 column: "IndustryId");
@@ -430,34 +391,14 @@ namespace api.Migrations
                 column: "JobSeekerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobPostings_AppUserId",
+                name: "IX_JobPostings_CompanyId",
                 table: "JobPostings",
-                column: "AppUserId");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobPostings_IndustryId",
                 table: "JobPostings",
                 column: "IndustryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobPostings_RecruiterId",
-                table: "JobPostings",
-                column: "RecruiterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobSeekers_AppUserId1",
-                table: "JobSeekers",
-                column: "AppUserId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Recruiters_AppUserId",
-                table: "Recruiters",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Recruiters_CompanyId",
-                table: "Recruiters",
-                column: "CompanyId");
         }
 
         /// <inheritdoc />
@@ -492,9 +433,6 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "JobSeekers");
-
-            migrationBuilder.DropTable(
-                name: "Recruiters");
 
             migrationBuilder.DropTable(
                 name: "Companies");

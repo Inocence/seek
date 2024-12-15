@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
-using api.Dtos.Company;
+using api.Dtos.CompanyDto;
+using api.Dtos.JobPostingDto;
 using api.Interfaces;
 using api.Models;
 using api.Utilities;
@@ -20,7 +21,7 @@ namespace api.Repositories
         }
         public async Task<PageResult<JobPosting>> GetListByQuery(JobPostingQuery query)
         {
-            var querable = _context.JobPostings.AsQueryable();
+            var querable = _context.JobPostings.Include(j => j.Company).Include(j => j.Industry).AsQueryable();
             if(!string.IsNullOrWhiteSpace(query.Keywords)) {
                 querable = querable.Where(x => x.Title.Contains(query.Keywords) || x.Description.Contains(query.Keywords));
             }

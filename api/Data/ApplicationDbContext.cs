@@ -23,7 +23,6 @@ namespace api.Data
         public DbSet<JobApplication> JobApplications {get; set;}
         public DbSet<JobPosting> JobPostings {get; set;}
         public DbSet<JobSeeker> JobSeekers {get; set;}
-        public DbSet<Recruiter> Recruiters {get; set;}
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -47,18 +46,46 @@ namespace api.Data
                     NormalizedName = RoleType.Recruiter.ToUpper(),
                 }
             };
-
             builder.Entity<IdentityRole>().HasData(roles);
 
+            //Appuser -> JobPosting (Many-to-Many)
             builder.Entity<JobApplication>()
                 .HasOne(j => j.JobPosting)
                 .WithMany(j => j.JobApplications)
-                .HasForeignKey(j => j.JobSeekerId);
+                .HasForeignKey(j => j.JobPostingId);
 
             builder.Entity<JobApplication>()
                 .HasOne(j => j.JobSeeker)
                 .WithMany(j => j.JobApplications)
-                .HasForeignKey(j => j.JobPostingId);
+                .HasForeignKey(j => j.JobSeekerId);
+
+            //Appuser -> Company (One-to-One)
+            builder.Entity<Company>()
+                .HasOne(c => c.AppUser)
+                .WithOne()
+                .HasForeignKey<Company>(c => c.Id)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            //AppUser -> JobSeeker (One-to-One)
+            builder.Entity<JobSeeker>()
+                .HasOne(j => j.AppUser)
+                .WithOne()
+                .HasForeignKey<JobSeeker>(j => j.Id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //JobPosting -> Industry
+            builder.Entity<JobPosting>()
+                .HasOne(j => j.Industry)
+                .WithMany(i => i.JobPostings)
+                .HasForeignKey(j => j.IndustryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //JobPosting -> Company
+            builder.Entity<JobPosting>()
+                .HasOne(j => j.Company)
+                .WithMany(c => c.JobPostings)
+                .HasForeignKey(j => j.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

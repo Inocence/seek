@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
-using api.Dtos.Company;
+using api.Dtos.CompanyDto;
+using api.Dtos.JobPostingDto;
 using api.Interfaces;
+using api.Mappers;
+using api.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -22,7 +25,13 @@ namespace api.Controllers
         [HttpGet("get-list-by-query")]
         public async Task<IActionResult> GetListByQuery([FromQuery] JobPostingQuery query) {
             var result = await _jobPostingRepo.GetListByQuery(query);
-            return Ok(result);
+            var jobPostings = result.Data.Select(j => j.FromModelToReponseDto()).ToList();
+            return Ok(new PageResult<JobPostingSimpleResponseDto> {
+                Data = jobPostings,
+                TotalRecords = result.TotalRecords,
+                TotalPages = result.TotalPages,
+                CurrentPage = result.CurrentPage
+            });
         }
     }
 }

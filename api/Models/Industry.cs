@@ -14,8 +14,9 @@ namespace api.Models
         public int SortOrder {get; set;}
         public int JobCount {get; set;}
         public IsActive IsActive { get; set; } = IsActive.IsActive;
-        public List<Company> Companies {get; set;} = [];
         public DateTime UpdatedAt { get; set; }
         public DateTime CreatedAt { get; set; }
+        public ICollection<Company> Companies {get; set;} = new List<Company>();
+        public ICollection<JobPosting> JobPostings {get; set;} = new List<JobPosting>();
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Constants;
 using api.Data;
-using api.Dtos.Account;
+using api.Dtos.AccountDto;
 using api.Interfaces;
 using api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;

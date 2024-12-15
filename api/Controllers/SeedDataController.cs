@@ -57,7 +57,7 @@ namespace api.Controllers
                     Latitude = -33.8688m,
                     Longitude = 151.2093m,
                     IndustryId = industry.Id,
-                    AppUserId = appUser.Id
+                    Id = appUser.Id
                 };
                 await _context.Companies.AddAsync(companyObj);
                 await _context.SaveChangesAsync();
@@ -89,7 +89,7 @@ namespace api.Controllers
                     Latitude = -33.8688m,
                     Longitude = 151.2093m,
                     IndustryId = i + 1,
-                    AppUserId = users[i],
+                    CompanyId = users[i],
                 };
                 _context.JobPostings.Add(jobObj);
                 await _context.SaveChangesAsync();

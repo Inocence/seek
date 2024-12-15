@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Dtos.Company
+namespace api.Dtos.CompanyDto
 {
-    public class CompanyListReponseDto
+    public class CompanySimpleReponseDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string? CompanyName { get; set; }
         public string? Logo { get; set; }
         public int JobCount { get; set; }

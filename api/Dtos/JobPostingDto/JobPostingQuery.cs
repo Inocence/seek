@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Dtos.Company
+namespace api.Dtos.JobPostingDto
 {
     public class JobPostingQuery
     {

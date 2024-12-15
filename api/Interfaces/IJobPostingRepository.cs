@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.Company;
+using api.Dtos.CompanyDto;
+using api.Dtos.JobPostingDto;
 using api.Models;
 using api.Utilities;
 

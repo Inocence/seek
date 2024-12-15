@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
-using api.Dtos.Common;
-using api.Dtos.Company;
+using api.Dtos.CommonDto;
+using api.Dtos.CompanyDto;
 using api.Interfaces;
 using api.Mappers;
 using api.Utilities;
@@ -34,7 +34,7 @@ namespace api.Controllers
             }
             var result = await _companyRepo.GetListByQuery(simpleQuery.PageNumber, simpleQuery.PageSize);
             var companies = result.Data.Select(x => x.FromModelToReponseDto());
-            return Ok(new PageResult<CompanyListReponseDto> {
+            return Ok(new PageResult<CompanySimpleReponseDto> {
                 Data = result.Data.Select(x => x.FromModelToReponseDto()).ToList(),
                 TotalRecords = result.TotalRecords,
                 TotalPages = result.TotalPages,

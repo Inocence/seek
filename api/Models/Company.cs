@@ -8,7 +8,7 @@ namespace api.Models
 {
     public class Company
     {
-        public int Id { get; set; }
+        public string Id {get; set;}
         public string? CompanyName { get; set; }
         public string CompanyWebsite { get; set; } = string.Empty;
         public string? ContactNumber { get; set; }
@@ -20,7 +20,7 @@ namespace api.Models
         public int IndustryId {get; set;}
         public IsActive IsActive {get; set;} = IsActive.IsActive;
         public Industry? Industry { get; set; }
-        public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
+        public ICollection<JobPosting> JobPostings = new List<JobPosting>();
     }
 }

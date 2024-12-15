@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Dtos.Common
+namespace api.Dtos.CommonDto
 {
     public class SimpleQuery
     {

@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241129070855_Init")]
+    [Migration("20241215012855_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -54,25 +54,25 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c3382307-0cdc-4a16-9528-628483e31a30",
+                            Id = "87f01cd3-713d-4e77-ae2e-2e83d2fbecc5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "06330024-90cc-48da-99dd-9ffe2028c414",
+                            Id = "23e4d101-d5e7-49dd-bbe8-c8dba5c2f81d",
                             Name = "JobSeeker",
                             NormalizedName = "JOBSEEKER"
                         },
                         new
                         {
-                            Id = "acde8451-7a5f-4389-ac96-c6fe51ebe4e8",
+                            Id = "98808333-38cd-4fed-949c-4a3f906bef9e",
                             Name = "Company",
                             NormalizedName = "COMPANY"
                         },
                         new
                         {
-                            Id = "13d1e8ec-66f6-481f-8777-f17b0ac18d15",
+                            Id = "5af3a490-bc39-46b2-8602-acfb056cf378",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -251,13 +251,7 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Company", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AppUserId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CompanyName")
@@ -293,8 +287,6 @@ namespace api.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
 
                     b.HasIndex("IndustryId");
 
@@ -379,8 +371,8 @@ namespace api.Migrations
                     b.Property<int>("JobPostingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("JobSeekerId")
-                        .HasColumnType("int");
+                    b.Property<string>("JobSeekerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -402,7 +394,8 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AppUserId")
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -430,9 +423,6 @@ namespace api.Migrations
                     b.Property<DateTime>("PostedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("RecruiterId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Salary")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -449,27 +439,16 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("IndustryId");
-
-                    b.HasIndex("RecruiterId");
 
                     b.ToTable("JobPostings");
                 });
 
             modelBuilder.Entity("api.Models.JobSeeker", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AppUserId1")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CountryCode")
@@ -495,32 +474,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId1");
-
                     b.ToTable("JobSeekers");
-                });
-
-            modelBuilder.Entity("api.Models.Recruiter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Recruiters");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -577,8 +531,10 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Company", b =>
                 {
                     b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
+                        .WithOne()
+                        .HasForeignKey("api.Models.Company", "Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("api.Models.Industry", "Industry")
                         .WithMany("Companies")
@@ -602,17 +558,15 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.JobApplication", b =>
                 {
-                    b.HasOne("api.Models.JobSeeker", "JobSeeker")
+                    b.HasOne("api.Models.JobPosting", "JobPosting")
                         .WithMany("JobApplications")
                         .HasForeignKey("JobPostingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("api.Models.JobPosting", "JobPosting")
+                    b.HasOne("api.Models.JobSeeker", "JobSeeker")
                         .WithMany("JobApplications")
-                        .HasForeignKey("JobSeekerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("JobSeekerId");
 
                     b.Navigation("JobPosting");
 
@@ -621,21 +575,19 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.JobPosting", b =>
                 {
-                    b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("api.Models.Industry", "Industry")
-                        .WithMany()
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("api.Models.Company", "Company")
+                        .WithMany("JobPostings")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("api.Models.Recruiter", null)
+                    b.HasOne("api.Models.Industry", "Industry")
                         .WithMany("JobPostings")
-                        .HasForeignKey("RecruiterId");
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.Navigation("Company");
 
                     b.Navigation("Industry");
                 });
@@ -643,32 +595,24 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.JobSeeker", b =>
                 {
                     b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId1");
+                        .WithOne()
+                        .HasForeignKey("api.Models.JobSeeker", "Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("api.Models.Recruiter", b =>
+            modelBuilder.Entity("api.Models.Company", b =>
                 {
-                    b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("api.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Company");
+                    b.Navigation("JobPostings");
                 });
 
             modelBuilder.Entity("api.Models.Industry", b =>
                 {
                     b.Navigation("Companies");
+
+                    b.Navigation("JobPostings");
                 });
 
             modelBuilder.Entity("api.Models.JobPosting", b =>
@@ -679,11 +623,6 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.JobSeeker", b =>
                 {
                     b.Navigation("JobApplications");
-                });
-
-            modelBuilder.Entity("api.Models.Recruiter", b =>
-                {
-                    b.Navigation("JobPostings");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,7 +7,7 @@ namespace api.Models
 {
     public class JobSeeker
     {
-        public int Id { get; set; }
+        public string Id {get; set;}
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? CountryCode { get; set; }
@@ -15,8 +15,7 @@ namespace api.Models
         public string? LocationName { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
-        public int AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
-        public List<JobApplication> JobApplications {get; set;} = [];
+        public ICollection<JobApplication> JobApplications {get; set;} = new List<JobApplication>();
     }
 }
